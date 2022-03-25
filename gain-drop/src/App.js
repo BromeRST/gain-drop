@@ -1,15 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+
 import Dashboard from './components/dashboard';
 import Profile from './components/profile';
-import {Route, Link} from 'react-router-dom';
+import CreateNFT from './components/createNFT';
+import CreateCampaign from './components/createCampaign';
+import {Route, Routes} from 'react-router-dom';
 import { Router, browserHistory } from 'react-router';
+import './App.css';
 
-function App() {
+const App=props=> {
   return (
     <div className="App">
-      <Router exact path="/" component={Dashboard} />
-      <Router path="/profile" component={Profile} />
+      <Routes>
+      <Route exact path="/" element={<Dashboard/>} />
+      <Route path="/profile" element={<Profile/>} />
+      <Route path="/createCampaign" element={<CreateCampaign/>} />
+      <Route path="/createNFT" element={<CreateNFT/>} />
+      </Routes>
     </div>
   );
 }

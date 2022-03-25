@@ -41,7 +41,7 @@ class Dashboard extends Component {
     {/* Main Sidebar Container */}
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       {/* Brand Logo */}
-      <a href="index.html" className="brand-link">
+      <a href="/index" className="brand-link">
         {/* <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> */}
         <span className="brand-text font-weight-light">Gain Drop</span>
       </a>
@@ -77,28 +77,28 @@ class Dashboard extends Component {
          with font-awesome or any other icon font library */}
             <li className="nav-item menu-open"></li>
             <li className="nav-item">
-              <a href="./index.html" className="nav-link active">
+              <a href="/" className="nav-link active">
                 <i className="nav-icon fas fa-tachometer-alt" />
                 <p>Dashboard</p>
               </a>
             </li>
             <li className="nav-item">
-              <a href="./createNFT.html" className="nav-link">
+              <a href="/createNFT" className="nav-link">
                 <p>Create NFT</p>
               </a>
             </li>
             <li className="nav-item">
-              <a href="./createCamp.html" className="nav-link">
+              <a href="/createCampaign" className="nav-link">
                 <p>Create Campaign</p>
               </a>
             </li>
             <li className="nav-item">
-              <a href="./profile.html" className="nav-link">
+              <a href="/profile" className="nav-link">
                 <p>Profile</p>
               </a>
             </li>
             <li className="nav-item">
-              <a href="./settings.html" className="nav-link">
+              <a href="/settings" className="nav-link">
                 <p>Settings</p>
               </a>
             </li>

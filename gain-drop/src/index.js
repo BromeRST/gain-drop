@@ -12,7 +12,7 @@ import {Route, Link} from 'react-router-dom';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Profile />
+    <App />
   </BrowserRouter>,
 
   document.getElementById('root')

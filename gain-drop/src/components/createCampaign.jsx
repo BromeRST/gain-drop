@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 
-class Profile extends Component {
-    state = { 
-      userW: '1F1tA......az5x1H',
-
-     }
-     
-     profileSubmit(){
-       console.log("submit button is clicked");
-     }
-     
+class CreateCampaign extends Component {
+    state = {  } 
     render() { 
         return (
-
             <div className="wrapper">
   {/* Navbar */}
   <nav className="main-header navbar navbar-expand navbar-white navbar-light">
@@ -51,7 +42,7 @@ class Profile extends Component {
       <div className="user-panel mt-3 pb-3 mb-3 d-flex">
         <div className="info">
           <a href="#" className="d-block">
-            {this.state.userW}
+            User Wallet address
           </a>
         </div>
       </div>
@@ -78,12 +69,12 @@ class Profile extends Component {
             </a>
           </li>
           <li className="nav-item">
-            <a href="/createCampaign" className="nav-link">
+            <a href="/createCamp" className="nav-link active">
               <p>Create Campaign</p>
             </a>
           </li>
           <li className="nav-item">
-            <a href="/profile" className="nav-link active">
+            <a href="/profile" className="nav-link">
               <p>Profile</p>
             </a>
           </li>
@@ -110,7 +101,7 @@ class Profile extends Component {
       <div className="container-fluid">
         <div className="row mb-2">
           <div className="col-sm-6">
-            <h1 className="m-0">Create Profile</h1>
+            <h1 className="m-0">Create Campaign</h1>
           </div>
           {/* /.col */}
           <div className="col-sm-6">
@@ -118,7 +109,7 @@ class Profile extends Component {
               <li className="breadcrumb-item">
                 <a href="#">Home</a>
               </li>
-              <li className="breadcrumb-item active">Profile</li>
+              <li className="breadcrumb-item active">Create Campaign</li>
             </ol>
           </div>
           {/* /.col */}
@@ -129,40 +120,55 @@ class Profile extends Component {
     </div>
     {/* /.content-header */}
     {/* Main content */}
-    {/* write profile code from here */}
-    <div>
-      <h1 className="text-center">Brand Profile</h1>
-      <p className="text-center">
-        Creating your profile is saving in the Blockchain
-      </p>
-      <p className="text-center">Make your NFT Profile Awesome</p>
-      <section style={{ padding: "20%", paddingTop: 0, paddingBottom: 0 }}>
-        <form style={{ padding: 41 }}>
-          <label className="form-label">Company Name</label>
-          <input className="form-control" type="text" />
-          <p>Brand Name</p>
-          <input className="form-control" type="text" />
-          <p>Business Address</p>
-          <input className="form-control" type="text" />
-          <p>Country</p>
-          <input className="form-control" type="text" />
-          <p>Province</p>
-          <input className="form-control" type="text" />
-          <p>City</p>
-          <input className="form-control" type="text" />
-          <p>Industry</p>
-          <input className="form-control" type="text" />
-          <p>Upload Image</p>
-          <p>File Types Supportes JPEG and PNG</p>
-          <input className="form-control" type="file" />
-          <p>Company Description</p>
-          <textarea className="form-control" defaultValue={""} />
-          <button onClick={this.profileSubmit} className="btn btn-primary" type="submit">
-            Submit
-          </button>
-        </form>
-      </section>
-    </div>
+    <section style={{ padding: "20%", paddingTop: 0, paddingBottom: 0 }}>
+      <form style={{ padding: 41 }}>
+        <p>Company Name:&nbsp;</p>
+        <p>Brand</p>
+        <label className="form-label">Campaign Name</label>
+        <input className="form-control" type="text" />
+        <p>Start Date</p>
+        <p>
+          <input className="form-control" type="date" />
+          End Date
+        </p>
+        <input className="form-control" type="date" />
+        <p>Country</p>
+        <input className="form-control" type="text" />
+        <p>Choose NFT Collection</p>
+        <select className="form-select">
+          <optgroup label="This is a group">
+            <option value={12} selected="">
+              This is item 1
+            </option>
+            <option value={13}>This is item 2</option>
+            <option value={14}>This is item 3</option>
+          </optgroup>
+        </select>
+        <p>Blockchain</p>
+        <select className="form-select">
+          <optgroup label="This is a group">
+            <option value={12} selected="">
+              This is item 1
+            </option>
+            <option value={13}>This is item 2</option>
+            <option value={14}>This is item 3</option>
+          </optgroup>
+        </select>
+        <p>Destination</p>
+        <select className="form-select">
+          <optgroup label="This is a group">
+            <option value={12} selected="">
+              This is item 1
+            </option>
+            <option value={13}>This is item 2</option>
+            <option value={14}>This is item 3</option>
+          </optgroup>
+        </select>
+        <button className="btn btn-primary" type="submit">
+          Submit
+        </button>
+      </form>
+    </section>
     {/* /.content */}
   </div>
   {/* /.content-wrapper */}
@@ -186,4 +192,4 @@ class Profile extends Component {
     }
 }
  
-export default Profile;
+export default CreateCampaign;
