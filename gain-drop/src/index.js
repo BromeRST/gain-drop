@@ -9,10 +9,12 @@ import Profile from './components/profile';
 import {BrowserRouter} from 'react-router-dom';
 import { Router, BrowserHistory } from 'react-router';
 import {Route, Link} from 'react-router-dom';
+import CreateNFT from './components/createNFT';
+import CreateCampaign from './components/createCampaign';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Profile />
+    <CreateCampaign />
   </BrowserRouter>,
 
   document.getElementById('root')
