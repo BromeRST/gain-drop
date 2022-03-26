@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Login from "./Login"
 
 class CreateCampaign extends Component {
     state = {  } 
@@ -41,9 +42,7 @@ class CreateCampaign extends Component {
       {/* Sidebar user panel (optional) */}
       <div className="user-panel mt-3 pb-3 mb-3 d-flex">
         <div className="info">
-          <a href="#" className="d-block">
-            User Wallet address
-          </a>
+          <Login />
         </div>
       </div>
       {/* SidebarSearch Form */}

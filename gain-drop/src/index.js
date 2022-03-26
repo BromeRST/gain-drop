@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { SignerContextProvider } from "./context/signer";
 // import 'bootstrap/dist/css/bootstrap.css';
 import Dashboard from './components/dashboard';
 import Profile from './components/profile';
@@ -11,12 +12,17 @@ import { Router, BrowserHistory } from 'react-router';
 import {Route, Link} from 'react-router-dom';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+<React.StrictMode>
+    <SignerContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </SignerContextProvider>
+  </React.StrictMode>,
 
   document.getElementById('root')
 );
+
 
 // routing is not working
 

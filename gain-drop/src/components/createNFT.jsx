@@ -1,11 +1,150 @@
-import React, { Component } from "react";
+import abi from "../utils/contractABI.json";
+import Login from "./Login.tsx";
+import { ethers } from "ethers";
+import { useState, useEffect } from "react";
+import { useSigner } from "../context/signer.tsx";
+import { main } from "../utils/nftStorageAPI";
+
+const contractAddress = "0x9132dc34c978C67E045B6d9B4b1edED9941e5858";
+
+function CreateNFT() {
+
+  const [mumbaiProvider, setMumbaiProvider] = useState(null);
+  const [thisContract, setThisContract] = useState(null);
+  const [idForBalance, setIdForBalance] = useState(null);
+  const [daysToMint, setDaysToMint] = useState(null);
+  const [mintCap, setMintCap] = useState(null);
+  const [NFTMinted, setNFTMinted] = useState(null);
+  const [nftIdGenerated, setNftIdGenerated] = useState(null);
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [image, setImage] = useState(null);
+  const [firstTrait, setFirstTrait] = useState(null);
+  const [firstTraitValue, setFirstTraitValue] = useState(null);
+  const [secondTrait, setSecondTrait] = useState(null);
+  const [secondTraitValue, setSecondTraitValue] = useState(null);
+  const [creating, setCreating] = useState(false);
 
 
-class CreateNFT extends Component {
-    state = {  } 
-    render() { 
-        return (
-            <div className="wrapper">
+  const { signer, provider, signerAddress } = useSigner();
+
+  const generateNFT = async () => {
+    if (signerAddress) {
+      setCreating(true);
+      const uri = await main(name, description, image, firstTrait, firstTraitValue, secondTrait, secondTraitValue);
+      const tx = await thisContract.generateNFT(daysToMint * 86400, mintCap, uri);
+      const rc = await tx.wait();
+      const event = rc.events.find(event => event.event === 'IDCreated');
+      const [_id] = event.args;
+      setNftIdGenerated(parseInt(ethers.utils.formatUnits(_id, 0)));
+    }
+  }
+
+  const balanceOfSigner = async () => {
+    if (signerAddress) {
+      const tx = await thisContract.balanceOf(signerAddress, idForBalance);
+      // await tx.wait();
+      console.log(tx);
+    }
+  }
+
+  const mint = async () => {
+    if (signerAddress) {
+      const tx = await thisContract.mint(idForBalance);
+      // await tx.wait();
+      console.log(tx);
+    }
+  }
+
+  // const setUri = async () => {
+  //   if (signerAddress) {
+  //     const tx = await thisContract.setUri(nftIdGenerated, myURI);
+  //     notify.hash(tx.hash);
+  //     // await tx.wait();
+  //     console.log(tx);
+  //   }
+  // }
+
+  const nftMinted = async () => {
+    if (signerAddress) {
+      const tx = await thisContract.getCountForId(idForBalance);
+      // await tx.wait();
+      setNFTMinted(parseInt(ethers.utils.formatUnits(tx, 0)));
+    }
+  }
+
+  const handleIdInsert = (e) => {
+    setIdForBalance(e.target.value);
+  }
+
+  const handleDaysToMint = (e) => {
+    setDaysToMint(e.target.value);
+  }
+
+  const handleMintCap = (e) => {
+    setMintCap(e.target.value);
+  }
+
+  const handleName = (e) => {
+    setName(e.target.value);
+  }
+
+  const handleDescription = (e) => {
+    setDescription(e.target.value);
+  }
+
+  const readFiles = (event) => {
+    const [file] = event.target.files;
+    setImage(file);
+  };
+
+  // const handleURI = () => {
+  //   main(name, description, image, firstTrait, firstTraitValue, secondTrait, secondTraitValue);
+  // }
+
+  const handleFirstTrait = (e) => {
+    setFirstTrait(e.target.value);
+  }
+
+  const handleFirstTraitValue = (e) => {
+    setFirstTraitValue(e.target.value);
+  }
+
+  const handleSecondTrait = (e) => {
+    setSecondTrait(e.target.value);
+  }
+
+  const handleSecondTraitValue = (e) => {
+    setSecondTraitValue(e.target.value);
+  }
+
+  // const handleMyURI = (e) => {
+  //   setMyURI(e.target.value);
+  // }
+
+  useEffect(() => {
+    const mProvider = new ethers.providers.JsonRpcProvider(
+      "https://polygon-mumbai.g.alchemy.com/v2/SeyWmSZubocxNcqaWaiR--xe00RiT1ig"
+    );
+    setMumbaiProvider(mProvider);
+
+  }, []);
+
+
+  useEffect(() => {
+    if (signer || provider || mumbaiProvider) {
+      setThisContract(
+        new ethers.Contract(
+          contractAddress,
+          abi,
+          signer || provider || mumbaiProvider
+        )
+      );
+    }
+  }, [provider, signer, mumbaiProvider]);
+
+  return (
+      <div className="wrapper">
   {/* Navbar */}
   <nav className="main-header navbar navbar-expand navbar-white navbar-light">
     {/* Left navbar links */}
@@ -42,9 +181,7 @@ class CreateNFT extends Component {
       {/* Sidebar user panel (optional) */}
       <div className="user-panel mt-3 pb-3 mb-3 d-flex">
         <div className="info">
-          <a href="#" className="d-block">
-            User Wallet address
-          </a>
+          <Login />
         </div>
       </div>
       {/* SidebarSearch Form */}
@@ -122,14 +259,47 @@ class CreateNFT extends Component {
     {/* /.content-header */}
     {/* Main content */}
     <section style={{ padding: "20%", paddingTop: 0, paddingBottom: 0 }}>
-      <form style={{ padding: 41 }}>
+      <div style={{ padding: 41 }}>
         <label className="form-label">Name</label>
-        <input className="form-control" type="text" />
+        <input className="form-control" type="text" onChange={handleName}/>
         <p>Image or 3D Model</p>
-        <input className="form-control" type="file" />
+        <input className="form-control" type="file" onChange={readFiles}/>
         <p>Description</p>
-        <textarea className="form-control" defaultValue={""} />
-        <p>Type of NFT</p>
+        <textarea className="form-control" defaultValue={""} onChange={handleDescription}/>
+        <p>Attributes:</p>
+        <label className="form-label" htmlFor="first-trait">First Trait</label>
+        <input
+          className="form-control"
+          type="text"
+          placeholder="name of the first trait"
+          id="first-trait"
+          onChange={handleFirstTrait}
+        />
+        <label className="form-label" htmlFor="first-trait-value">First Trait Value</label>
+        <input
+          className="form-control"
+          type="text"
+          placeholder="trait value"
+          id="first-trait-value"
+          onChange={handleFirstTraitValue}
+        />
+        <label className="form-label" htmlFor="second-trait">Second Trait</label>
+        <input
+        className="form-control"
+          type="text"
+          placeholder="name of the second trait"
+          id="second trait-trait"
+          onChange={handleSecondTrait}
+        />
+        <label className="form-label" htmlFor="second-trait-value">First Trait Value</label>
+        <input
+          className="form-control"
+          type="text"
+          placeholder="trait value"
+          id="second-trait-value"
+          onChange={handleSecondTraitValue}
+        />
+        {/* <p>Type of NFT</p>
         <select className="form-select">
           <optgroup label="Select Type of NFT">
             <option value={12} selected="">
@@ -140,8 +310,8 @@ class CreateNFT extends Component {
         <p>Value</p>
         <input className="form-control" type="text" />
         <p>Minimum Spend Required</p>
-        <input className="form-control" type="text" />
-        <p>Expiration</p>
+        <input className="form-control" type="text" /> */}
+        {/* <p>Expiration</p>
         <select className="form-select">
           <optgroup label="">
             <option value={12} selected="">
@@ -149,17 +319,18 @@ class CreateNFT extends Component {
             </option>
             <option value={13}>No</option>
           </optgroup>
-        </select>
-        <p>Date</p>
-        <input className="form-control" type="date" />
-        <p>External Link</p>
-        <input className="form-control" type="url" />
+        </select> */}
+        <p>Days to mint</p>
+        <input className="form-control" type="number" onChange={handleDaysToMint}/>
+        {/* <p>External Link</p>
+        <input className="form-control" type="url" /> */}
         <p>Quantity</p>
-        <input className="form-control" type="number" />
-        <button className="btn btn-primary" type="submit">
-          Submit
+        <input className="form-control" type="number" onChange={handleMintCap}/>
+        <button className="btn btn-primary" onClick={generateNFT}>
+          {creating ? "wait a second and confirm transaction" : "create"}
         </button>
-      </form>
+        {nftIdGenerated === null ? "" : <p>NFT ID generated: {nftIdGenerated}</p>}
+        </div>
     </section>
     {/* /.content */}
   </div>
@@ -180,8 +351,7 @@ class CreateNFT extends Component {
   {/* /.control-sidebar */}
 </div>
 
-        );
-    }
+);
 }
  
 export default CreateNFT;

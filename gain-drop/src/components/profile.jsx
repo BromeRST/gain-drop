@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Login from "./Login"
 
 class Profile extends Component {
     state = { 
@@ -50,9 +51,7 @@ class Profile extends Component {
       {/* Sidebar user panel (optional) */}
       <div className="user-panel mt-3 pb-3 mb-3 d-flex">
         <div className="info">
-          <a href="#" className="d-block">
-            {this.state.userW}
-          </a>
+          <Login />
         </div>
       </div>
       {/* SidebarSearch Form */}

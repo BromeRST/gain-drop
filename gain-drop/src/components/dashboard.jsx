@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Login from "./Login"
 
 class Dashboard extends Component {
   state = {
@@ -49,7 +50,7 @@ class Dashboard extends Component {
       <div className="sidebar">
         {/* Sidebar user panel (optional) */}
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div className="image">
+          {/* <div className="image">
             <div className="image">
               <img
                 src="dist/img/user2-160x160.jpg"
@@ -57,11 +58,9 @@ class Dashboard extends Component {
                 alt="User Image"
               />
             </div>
-          </div>
+          </div> */}
           <div className="info">
-            <a href="#" className="d-block">
-              {this.state.userW}
-            </a>
+            <Login />
           </div>
         </div>
         {/* SidebarSearch Form */}

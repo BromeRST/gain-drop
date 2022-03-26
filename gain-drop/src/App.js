@@ -7,14 +7,15 @@ import {Route, Routes} from 'react-router-dom';
 import { Router, browserHistory } from 'react-router';
 import './App.css';
 
-const App=props=> {
+const App= props => {
+
   return (
     <div className="App">
       <Routes>
-      <Route exact path="/" element={<Dashboard/>} />
-      <Route path="/profile" element={<Profile/>} />
-      <Route path="/createCampaign" element={<CreateCampaign/>} />
-      <Route path="/createNFT" element={<CreateNFT/>} />
+        <Route exact path="/" element={<Dashboard/>} />
+        <Route path="/profile" element={<Profile/>} />
+        <Route path="/createCampaign" element={<CreateCampaign/>} />
+        <Route path="/createNFT" element={<CreateNFT/>} />
       </Routes>
     </div>
   );
