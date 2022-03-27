@@ -11,7 +11,6 @@ function CreateNFT() {
 
   const [mumbaiProvider, setMumbaiProvider] = useState(null);
   const [thisContract, setThisContract] = useState(null);
-  const [idForBalance, setIdForBalance] = useState(null);
   const [daysToMint, setDaysToMint] = useState(null);
   const [mintCap, setMintCap] = useState(null);
   const [NFTMinted, setNFTMinted] = useState(null);
@@ -40,21 +39,6 @@ function CreateNFT() {
     }
   }
 
-  const balanceOfSigner = async () => {
-    if (signerAddress) {
-      const tx = await thisContract.balanceOf(signerAddress, idForBalance);
-      // await tx.wait();
-      console.log(tx);
-    }
-  }
-
-  const mint = async () => {
-    if (signerAddress) {
-      const tx = await thisContract.mint(idForBalance);
-      // await tx.wait();
-      console.log(tx);
-    }
-  }
 
   // const setUri = async () => {
   //   if (signerAddress) {
@@ -71,10 +55,6 @@ function CreateNFT() {
       // await tx.wait();
       setNFTMinted(parseInt(ethers.utils.formatUnits(tx, 0)));
     }
-  }
-
-  const handleIdInsert = (e) => {
-    setIdForBalance(e.target.value);
   }
 
   const handleDaysToMint = (e) => {
@@ -217,6 +197,11 @@ function CreateNFT() {
             </a>
           </li>
           <li className="nav-item">
+              <a href="/mint" className="nav-link">
+                <p>Mint</p>
+              </a>
+            </li>
+          <li className="nav-item">
             <a href="/settings" className="nav-link">
               <p>Settings</p>
             </a>
@@ -266,6 +251,17 @@ function CreateNFT() {
         <input className="form-control" type="file" onChange={readFiles}/>
         <p>Description</p>
         <textarea className="form-control" defaultValue={""} onChange={handleDescription}/>
+        <p>Type of NFT</p>
+        <select className="form-select">
+          <optgroup label="Select Type of NFT">
+            <option value="coupon" selected="">
+              Discount Coupon
+            </option>
+            <option value="loyalty" selected="">
+              Loyalty NFT
+            </option>
+          </optgroup>
+        </select>
         <p>Attributes:</p>
         <label className="form-label" htmlFor="first-trait">First Trait</label>
         <input

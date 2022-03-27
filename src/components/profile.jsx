@@ -87,6 +87,11 @@ class Profile extends Component {
             </a>
           </li>
           <li className="nav-item">
+              <a href="/mint" className="nav-link">
+                <p>Mint</p>
+              </a>
+            </li>
+          <li className="nav-item">
             <a href="/settings" className="nav-link">
               <p>Settings</p>
             </a>
